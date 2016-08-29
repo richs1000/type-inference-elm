@@ -52,7 +52,7 @@ buttonStyle =
 fillInTheBlank : Question -> String -> Html Msg
 fillInTheBlank quest userInput =
     Html.form [ onSubmit Submit ]
-        [ div [ questionStyle ] [ Html.text quest.question ]
+        [ questionLines quest.question
         , input
             [ Html.Attributes.type' "text"
             , placeholder "Answer here..."
@@ -80,8 +80,6 @@ multipleChoiceButtons answer distractors userInput randomValue =
                 |> List.append [ answer ]
                 |> List.append (List.take answerPosition distractors)
 
-        -- |> List.append answer
-        -- |> List.append (List.take answerPosition distractors)
         radios =
             List.foldl (\i acc -> (radio (fst i) userInput) :: acc) [] allItems
     in
@@ -89,10 +87,20 @@ multipleChoiceButtons answer distractors userInput randomValue =
             radios
 
 
+questionLines : List String -> Html Msg
+questionLines qLines =
+    div [ questionStyle ]
+        (List.foldr
+            (\q qs -> List.append [ Html.text q, br [] [] ] qs)
+            []
+            qLines
+        )
+
+
 multipleChoice : Question -> String -> Int -> Html Msg
 multipleChoice quest userInput randomValue =
     Html.form [ onSubmit Submit ]
-        [ div [ questionStyle ] [ Html.text quest.question ]
+        [ questionLines quest.question
         , (multipleChoiceButtons quest.answer quest.distractors userInput randomValue)
         , button
             [ Html.Attributes.type' "submit"

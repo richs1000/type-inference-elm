@@ -13,17 +13,16 @@ import MessageTypes exposing (Msg(..))
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        -- Startup flow: Reset -> New Question Flow
+        -- Startup flow: Reset -> NewRandomValues -> New Question Flow
         Reset ->
             ( initModel, Random.generate NewRandomValues (Random.list 15 (Random.int 1 15)) )
 
-        -- New Graph Flow: NewRandomValues -> NewNodes -> NewEdgeWeights -> New Question Flow
         NewRandomValues newValues ->
             ( { model | randomValues = newValues }
-            , Random.generate NewQuestion (Random.int 1 8)
+            , Random.generate NewQuestion (Random.int 1 3)
             )
 
-        -- New Question Flow: NewQuestion -> UserInput -> Submit -> Give Feedback -> Check Mastery -> New Graph Flow
+        -- New Question Flow: NewQuestion -> UserInput -> Submit -> Give Feedback -> Check Mastery
         NewQuestion questionIndex ->
             let
                 question' =

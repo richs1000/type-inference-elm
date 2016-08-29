@@ -28,6 +28,22 @@ var _user$project$Question$findFeedback = F3(
 			}
 		}
 	});
+var _user$project$Question$pickOne = F3(
+	function (randomValues, lst, defVal) {
+		var rv = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			_elm_lang$core$List$head(randomValues));
+		var index = A2(
+			_elm_lang$core$Basics$rem,
+			rv,
+			_elm_lang$core$List$length(lst));
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			defVal,
+			_elm_lang$core$List$head(
+				A2(_elm_lang$core$List$drop, index, lst)));
+	});
 var _user$project$Question$Question = F4(
 	function (a, b, c, d) {
 		return {question: a, distractors: b, answer: c, format: d};
@@ -35,146 +51,365 @@ var _user$project$Question$Question = F4(
 var _user$project$Question$MultipleChoice = {ctor: 'MultipleChoice'};
 var _user$project$Question$newQuestion = F2(
 	function (randomValues, index) {
-		return _elm_lang$core$Native_Utils.eq(index, 1) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 + e3\n\nWhat is the type of e1?',
-			distractors: _elm_lang$core$Native_List.fromArray(
+		var myVar = A3(
+			_user$project$Question$pickOne,
+			randomValues,
+			_elm_lang$core$Native_List.fromArray(
+				['e1', 'e2', 'e3']),
+			'e1');
+		if (_elm_lang$core$Native_Utils.eq(index, 1)) {
+			var myOp = A3(
+				_user$project$Question$pickOne,
+				A2(_elm_lang$core$List$drop, 1, randomValues),
+				_elm_lang$core$Native_List.fromArray(
+					['+', '-', '*']),
+				'+');
+			var myOp$ = _elm_lang$core$Native_Utils.eq(myOp, '+') ? 'addition' : (_elm_lang$core$Native_Utils.eq(myOp, '-') ? 'subtraction' : 'multiplication');
+			var distractors$ = _elm_lang$core$Native_Utils.eq(myVar, 'e1') ? _elm_lang$core$Native_List.fromArray(
 				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the result of an addition, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e1 is the result of an addition, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e1 is the result of an addition, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 2) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 + e3\n\nWhat is the type of e2?',
-			distractors: _elm_lang$core$Native_List.fromArray(
+					{
+					ctor: '_Tuple2',
+					_0: 'string',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is the result of ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ', so it must be an int'))))
+				},
+					{
+					ctor: '_Tuple2',
+					_0: 'bool',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is the result of ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ', so it must be an int'))))
+				},
+					{
+					ctor: '_Tuple2',
+					_0: 'It can have any type',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is the result of ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ', so it must be an int'))))
+				}
+				]) : _elm_lang$core$Native_List.fromArray(
 				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e2 is part of an addition expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e2 is part of an addition expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e2 is part of an addition expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 3) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 + e3\n\nWhat is the type of e3?',
-			distractors: _elm_lang$core$Native_List.fromArray(
+					{
+					ctor: '_Tuple2',
+					_0: 'string',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is part of a ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+				},
+					{
+					ctor: '_Tuple2',
+					_0: 'bool',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is part of a ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+				},
+					{
+					ctor: '_Tuple2',
+					_0: 'It can have any type',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Incorrect. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is part of a ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+				}
+				]);
+			var answer$ = _elm_lang$core$Native_Utils.eq(myVar, 'e1') ? {
+				ctor: '_Tuple2',
+				_0: 'int',
+				_1: A2(
+					_elm_lang$core$Basics_ops['++'],
+					'Correct. ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						myVar,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							' is the result of ',
+							A2(_elm_lang$core$Basics_ops['++'], myOp$, ', so it must be an int'))))
+			} : {
+				ctor: '_Tuple2',
+				_0: 'int',
+				_1: A2(
+					_elm_lang$core$Basics_ops['++'],
+					'Correct. ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						myVar,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							' is part of a ',
+							A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+			};
+			var question$ = _elm_lang$core$Native_List.fromArray(
 				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e3 is part of an addition expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e3 is part of an addition expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e3 is part of an addition expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 4) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 - e3\n\nWhat is the type of e1?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the result of a subtraction, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e1 is the result of a subtraction, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e1 is the result of a subtraction, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 5) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 - e3\n\nWhat is the type of e2?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e2 is part of a subtraction expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e2 is part of a subtraction expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e2 is part of a subtraction expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 6) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 - e3\n\nWhat is the type of e3?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e3 is part of a subtraction expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e3 is part of a subtraction expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e3 is part of a subtraction expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 7) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 * e3\n\nWhat is the type of e1?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the result of a multiplication, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e1 is the result of a multiplication, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e1 is the result of a multiplication, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 8) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 * e3\n\nWhat is the type of e2?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e2 is part of a multiplication expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e2 is part of a multiplication expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e2 is part of a multiplication expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 9) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 * e3\n\nWhat is the type of e3?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e3 is part of a multiplication expression, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e3 is part of a multiplication expression, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e3 is part of a multiplication expression, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 10) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 > e3\n\nWhat is the type of e1?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the result of a greater-than comparison, so it must be a bool'},
-					{ctor: '_Tuple2', _0: 'int', _1: 'Incorrect. e1 is the result of a greater-than comparison, so it must be a bool'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'bool', _1: 'Correct. e1 is the result of a greater-than comparison, so it must be a bool'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 11) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 > e3\n\nWhat is the type of e2?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e2 is part of a greater-than comparison, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e2 is part of a greater-than comparison, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e2 is part of a greater-than comparison, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 12) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 > e3\n\nWhat is the type of e3?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e3 is part of a greater-than comparison, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e3 is part of a greater-than comparison, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e3 is part of a greater-than comparison, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 13) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 < e3\n\nWhat is the type of e1?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the result of a less-than comparison, so it must be a bool'},
-					{ctor: '_Tuple2', _0: 'int', _1: 'Incorrect. e1 is the result of a less-than comparison, so it must be a bool'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'bool', _1: 'Correct. e1 is the result of a less-than comparison, so it must be a bool'},
-			format: _user$project$Question$MultipleChoice
-		} : (_elm_lang$core$Native_Utils.eq(index, 14) ? {
-			question: 'Given this ML expression:\n\nval e1 = e2 < e3\n\nWhat is the type of e2?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e2 is part of a less-than comparison, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e2 is part of a less-than comparison, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e2 is part of a less-than comparison, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		} : {
-			question: 'Given this ML expression:\n\nval e1 = e2 < e3\n\nWhat is the type of e3?',
-			distractors: _elm_lang$core$Native_List.fromArray(
-				[
-					{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e3 is part of a less-than comparison, so it must be an int'},
-					{ctor: '_Tuple2', _0: 'bool', _1: 'Incorrect. e3 is part of a less-than comparison, so it must be an int'}
-				]),
-			answer: {ctor: '_Tuple2', _0: 'int', _1: 'Correct. e3 is part of a less-than comparison, so it must be an int'},
-			format: _user$project$Question$MultipleChoice
-		})))))))))))));
+					'Given this ML expression:',
+					A2(
+					_elm_lang$core$Basics_ops['++'],
+					'val e1 = e2 ',
+					A2(_elm_lang$core$Basics_ops['++'], myOp, ' e3')),
+					A2(
+					_elm_lang$core$Basics_ops['++'],
+					'What is the type of ',
+					A2(_elm_lang$core$Basics_ops['++'], myVar, '?'))
+				]);
+			return {question: question$, distractors: distractors$, answer: answer$, format: _user$project$Question$MultipleChoice};
+		} else {
+			if (_elm_lang$core$Native_Utils.eq(index, 2)) {
+				var myOp = A3(
+					_user$project$Question$pickOne,
+					A2(_elm_lang$core$List$drop, 1, randomValues),
+					_elm_lang$core$Native_List.fromArray(
+						['>', '>=', '<', '<=']),
+					'>');
+				var myOp$ = _elm_lang$core$Native_Utils.eq(myOp, '>') ? 'greater than' : (_elm_lang$core$Native_Utils.eq(myOp, '>=') ? 'greater than or equal to' : (_elm_lang$core$Native_Utils.eq(myOp, '<=') ? 'less than or equal to' : 'less than'));
+				var distractors$ = _elm_lang$core$Native_Utils.eq(myVar, 'e1') ? _elm_lang$core$Native_List.fromArray(
+					[
+						{
+						ctor: '_Tuple2',
+						_0: 'string',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is the result of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be a bool'))))
+					},
+						{
+						ctor: '_Tuple2',
+						_0: 'int',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is the result of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be a bool'))))
+					},
+						{
+						ctor: '_Tuple2',
+						_0: 'It can have any type',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is the result of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be a bool'))))
+					}
+					]) : _elm_lang$core$Native_List.fromArray(
+					[
+						{
+						ctor: '_Tuple2',
+						_0: 'string',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is part of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+					},
+						{
+						ctor: '_Tuple2',
+						_0: 'bool',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is part of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+					},
+						{
+						ctor: '_Tuple2',
+						_0: 'It can have any type',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Incorrect. ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' is part of a ',
+									A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+					}
+					]);
+				var answer$ = _elm_lang$core$Native_Utils.eq(myVar, 'e1') ? {
+					ctor: '_Tuple2',
+					_0: 'bool',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Correct. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is the result of a ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be a bool'))))
+				} : {
+					ctor: '_Tuple2',
+					_0: 'int',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Correct. ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							myVar,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' is part of a ',
+								A2(_elm_lang$core$Basics_ops['++'], myOp$, ' expression, so it must be an int'))))
+				};
+				var question$ = _elm_lang$core$Native_List.fromArray(
+					[
+						'Given this ML expression:',
+						A2(
+						_elm_lang$core$Basics_ops['++'],
+						'val e1 = e2 ',
+						A2(_elm_lang$core$Basics_ops['++'], myOp, ' e3')),
+						A2(
+						_elm_lang$core$Basics_ops['++'],
+						'What is the type of ',
+						A2(_elm_lang$core$Basics_ops['++'], myVar, '?'))
+					]);
+				return {question: question$, distractors: distractors$, answer: answer$, format: _user$project$Question$MultipleChoice};
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(index, 3) && _elm_lang$core$Native_Utils.eq(myVar, 'e1')) {
+					var answer$ = {ctor: '_Tuple2', _0: 'bool', _1: 'Correct. e1 is the test condition within an if-then-else expression, so it must be a bool'};
+					var distractors$ = _elm_lang$core$Native_List.fromArray(
+						[
+							{ctor: '_Tuple2', _0: 'string', _1: 'Incorrect. e1 is the test condition within an if-then-else expression, so it must be a bool'},
+							{ctor: '_Tuple2', _0: 'int', _1: 'Incorrect. e1 is the test condition within an if-then-else expression, so it must be a bool'},
+							{ctor: '_Tuple2', _0: 'It can have any type', _1: 'Incorrect. e1 is the test condition within an if-then-else expression, so it must be a bool'}
+						]);
+					var question$ = _elm_lang$core$Native_List.fromArray(
+						[
+							'Given this ML expression:',
+							'if e1 then e2 else e3',
+							A2(
+							_elm_lang$core$Basics_ops['++'],
+							'What is the type of ',
+							A2(_elm_lang$core$Basics_ops['++'], myVar, '?'))
+						]);
+					return {question: question$, distractors: distractors$, answer: answer$, format: _user$project$Question$MultipleChoice};
+				} else {
+					var myAnswer = A3(
+						_user$project$Question$pickOne,
+						A2(_elm_lang$core$List$drop, 1, randomValues),
+						_elm_lang$core$Native_List.fromArray(
+							['int', 'bool', 'string']),
+						'int');
+					var _p2 = A2(
+						_elm_lang$core$List$partition,
+						function (s) {
+							return _elm_lang$core$Native_Utils.eq(s, myAnswer);
+						},
+						_elm_lang$core$Native_List.fromArray(
+							['int', 'bool', 'string', 'It can have any type']));
+					var myDistractors = _p2._1;
+					var distractors$ = A3(
+						_elm_lang$core$List$foldr,
+						F2(
+							function (d, ds) {
+								return A2(
+									_elm_lang$core$List_ops['::'],
+									{ctor: '_Tuple2', _0: d, _1: 'Incorrect. Both branches of an if-then-else statement must have the same type.'},
+									ds);
+							}),
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						myDistractors);
+					var answer$ = {ctor: '_Tuple2', _0: myAnswer, _1: 'Correct. Both branches of an if-then-else statement must have the same type.'};
+					var myVar2 = _elm_lang$core$Native_Utils.eq(myVar, 'e2') ? 'e3' : 'e2';
+					var question$ = _elm_lang$core$Native_List.fromArray(
+						[
+							'Given this ML expression:',
+							'if e1 then e2 else e3',
+							A2(
+							_elm_lang$core$Basics_ops['++'],
+							'If ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								myVar,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' has type ',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										myAnswer,
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											', what is the type of ',
+											A2(_elm_lang$core$Basics_ops['++'], myVar2, '?'))))))
+						]);
+					return {question: question$, distractors: distractors$, answer: answer$, format: _user$project$Question$MultipleChoice};
+				}
+			}
+		}
 	});
 var _user$project$Question$FillInTheBlank = {ctor: 'FillInTheBlank'};
 var _user$project$Question$emptyQuestion = {
-	question: '',
+	question: _elm_lang$core$Native_List.fromArray(
+		[]),
 	distractors: _elm_lang$core$Native_List.fromArray(
 		[]),
 	answer: {ctor: '_Tuple2', _0: '', _1: ''},

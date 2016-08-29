@@ -30,6 +30,33 @@ var _user$project$QuestionView$questionStyle = _elm_lang$html$Html_Attributes$st
 			{ctor: '_Tuple2', _0: 'font-size', _1: '2em'},
 			{ctor: '_Tuple2', _0: 'margin', _1: '4px'}
 		]));
+var _user$project$QuestionView$questionLines = function (qLines) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[_user$project$QuestionView$questionStyle]),
+		A3(
+			_elm_lang$core$List$foldr,
+			F2(
+				function (q, qs) {
+					return A2(
+						_elm_lang$core$List$append,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text(q),
+								A2(
+								_elm_lang$html$Html$br,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[]))
+							]),
+						qs);
+				}),
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			qLines));
+};
 var _user$project$QuestionView$fillInTheBlank = F2(
 	function (quest, userInput) {
 		return A2(
@@ -40,14 +67,7 @@ var _user$project$QuestionView$fillInTheBlank = F2(
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					A2(
-					_elm_lang$html$Html$div,
-					_elm_lang$core$Native_List.fromArray(
-						[_user$project$QuestionView$questionStyle]),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text(quest.question)
-						])),
+					_user$project$QuestionView$questionLines(quest.question),
 					A2(
 					_elm_lang$html$Html$input,
 					_elm_lang$core$Native_List.fromArray(
@@ -157,14 +177,7 @@ var _user$project$QuestionView$multipleChoice = F3(
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					A2(
-					_elm_lang$html$Html$div,
-					_elm_lang$core$Native_List.fromArray(
-						[_user$project$QuestionView$questionStyle]),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text(quest.question)
-						])),
+					_user$project$QuestionView$questionLines(quest.question),
 					A4(_user$project$QuestionView$multipleChoiceButtons, quest.answer, quest.distractors, userInput, randomValue),
 					A2(
 					_elm_lang$html$Html$button,
