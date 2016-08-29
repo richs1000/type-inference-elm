@@ -6,8 +6,6 @@ var model = new pipit.CapiAdapter.CapiModel({
     mastery: false,
     numerator: 30,
     denominator: 50,
-    weighted: false,
-    directed: false,
     implementMastery : false,
     debug : false
 });
@@ -16,8 +14,6 @@ var model = new pipit.CapiAdapter.CapiModel({
 pipit.CapiAdapter.expose('mastery', model);
 pipit.CapiAdapter.expose('numerator', model);
 pipit.CapiAdapter.expose('denominator', model);
-pipit.CapiAdapter.expose('weighted', model);
-pipit.CapiAdapter.expose('directed', model);
 pipit.CapiAdapter.expose('implementMastery', model);
 pipit.CapiAdapter.expose('debug', model);
 
@@ -38,14 +34,6 @@ model.on('change:numerator', function(){
 });
 
 model.on('change:denominator', function(){
-    app.ports.ssData.send( model );
-});
-
-model.on('change:weighted', function(){
-    app.ports.ssData.send( model );
-});
-
-model.on('change:directed', function(){
     app.ports.ssData.send( model );
 });
 
