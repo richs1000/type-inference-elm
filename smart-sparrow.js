@@ -47,4 +47,5 @@ model.on('change:debug', function(){
 });
 
 $(document).ready(function() {
+    alert("here i am");
 });
