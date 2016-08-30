@@ -28,7 +28,7 @@ masteryAchieved model =
 
 initModel : Model
 initModel =
-    { debug = True
+    { debug = False
     , userInput = ""
     , history = []
     , success = Nothing
