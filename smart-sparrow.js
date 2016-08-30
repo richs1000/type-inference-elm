@@ -18,7 +18,7 @@ pipit.CapiAdapter.expose('debug', model);
 pipit.Controller.notifyOnReady();
 
 var node = document.getElementById('my-thing');
-var app = Elm.GraphQuestions.embed(node);
+var app = Elm.Main.embed(node);
 
 app.ports.updateMastery.subscribe(function(mastery) {
     model.set('mastery', mastery);
@@ -27,25 +27,25 @@ app.ports.updateMastery.subscribe(function(mastery) {
 });
 
 model.on('change:numerator', function(){
-    alert("numerator changed");
+    // alert("numerator changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:denominator', function(){
-    alert("denominator changed");
+    // alert("denominator changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:implementMastery', function(){
-    alert("impMastery changed");
+    // alert("impMastery changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:debug', function(){
-    alert("debug changed");
+    // alert("debug changed");
     app.ports.ssData.send( model );
 });
 
 $(document).ready(function() {
-    alert("here i am");
+    // alert("here i am");
 });
