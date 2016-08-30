@@ -10159,7 +10159,7 @@ var _user$project$Ports$ssData = _elm_lang$core$Native_Platform.incomingPort(
 		}));
 
 var _user$project$Model$initModel = {
-	debug: true,
+	debug: false,
 	userInput: '',
 	history: _elm_lang$core$Native_List.fromArray(
 		[]),
