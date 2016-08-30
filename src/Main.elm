@@ -1,4 +1,4 @@
-module GraphQuestions exposing (..)
+module TypeInference exposing (..)
 
 import Html.App as Html
 import ModelType exposing (Model)

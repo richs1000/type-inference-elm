@@ -1,7 +1,0 @@
-var _user$project$GraphQuestions$subscriptions = function (model) {
-	return _user$project$Ports$ssData(_user$project$MessageTypes$GetValuesFromSS);
-};
-var _user$project$GraphQuestions$main = {
-	main: _elm_lang$html$Html_App$program(
-		{init: _user$project$Model$init, view: _user$project$View$view, update: _user$project$Update$update, subscriptions: _user$project$GraphQuestions$subscriptions})
-};

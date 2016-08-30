@@ -18,7 +18,7 @@ pipit.CapiAdapter.expose('debug', model);
 pipit.Controller.notifyOnReady();
 
 var node = document.getElementById('my-thing');
-var app = Elm.Main.embed(node);
+var app = Elm.TypeInference.embed(node);
 
 app.ports.updateMastery.subscribe(function(mastery) {
     model.set('mastery', mastery);
