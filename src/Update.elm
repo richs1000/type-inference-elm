@@ -8,6 +8,7 @@ import Question exposing (..)
 import Ports exposing (..)
 import Model exposing (..)
 import MessageTypes exposing (Msg(..))
+import Debug exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -65,12 +66,17 @@ update msg model =
             ( model, updateMastery model.mastery )
 
         GetValuesFromSS ssd ->
-            ( { model
-                | mastery = ssd.mastery
-                , numerator = ssd.numerator
-                , denominator = ssd.denominator
-                , implementMastery = ssd.implementMastery
-                , debug = ssd.debug
-              }
-            , Random.generate NewRandomValues (Random.list 15 (Random.int 1 15))
-            )
+            let
+                debug' =
+                    Debug.log "got values from smart sparrow: "
+                        ssd.debug
+            in
+                ( { model
+                    | mastery = ssd.mastery
+                    , numerator = ssd.numerator
+                    , denominator = ssd.denominator
+                    , implementMastery = ssd.implementMastery
+                    , debug = ssd.debug
+                  }
+                , Random.generate NewRandomValues (Random.list 15 (Random.int 1 15))
+                )
