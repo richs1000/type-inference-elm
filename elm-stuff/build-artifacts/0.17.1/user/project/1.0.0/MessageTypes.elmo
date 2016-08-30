@@ -1,6 +1,6 @@
-var _user$project$MessageTypes$SSData = F7(
-	function (a, b, c, d, e, f, g) {
-		return {mastery: a, numerator: b, denominator: c, weighted: d, directed: e, implementMastery: f, debug: g};
+var _user$project$MessageTypes$SSData = F5(
+	function (a, b, c, d, e) {
+		return {mastery: a, numerator: b, denominator: c, implementMastery: d, debug: e};
 	});
 var _user$project$MessageTypes$GetValuesFromSS = function (a) {
 	return {ctor: 'GetValuesFromSS', _0: a};

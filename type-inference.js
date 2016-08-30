@@ -9206,9 +9206,9 @@ var _elm_lang$svg$Svg_Attributes$accelerate = _elm_lang$virtual_dom$VirtualDom$a
 var _elm_lang$svg$Svg_Attributes$accentHeight = _elm_lang$virtual_dom$VirtualDom$attribute('accent-height');
 
 
-var _user$project$MessageTypes$SSData = F7(
-	function (a, b, c, d, e, f, g) {
-		return {mastery: a, numerator: b, denominator: c, weighted: d, directed: e, implementMastery: f, debug: g};
+var _user$project$MessageTypes$SSData = F5(
+	function (a, b, c, d, e) {
+		return {mastery: a, numerator: b, denominator: c, implementMastery: d, debug: e};
 	});
 var _user$project$MessageTypes$GetValuesFromSS = function (a) {
 	return {ctor: 'GetValuesFromSS', _0: a};
@@ -9831,24 +9831,14 @@ var _user$project$Ports$ssData = _elm_lang$core$Native_Platform.incomingPort(
 						function (denominator) {
 							return A2(
 								_elm_lang$core$Json_Decode$andThen,
-								A2(_elm_lang$core$Json_Decode_ops[':='], 'weighted', _elm_lang$core$Json_Decode$bool),
-								function (weighted) {
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'implementMastery', _elm_lang$core$Json_Decode$bool),
+								function (implementMastery) {
 									return A2(
 										_elm_lang$core$Json_Decode$andThen,
-										A2(_elm_lang$core$Json_Decode_ops[':='], 'directed', _elm_lang$core$Json_Decode$bool),
-										function (directed) {
-											return A2(
-												_elm_lang$core$Json_Decode$andThen,
-												A2(_elm_lang$core$Json_Decode_ops[':='], 'implementMastery', _elm_lang$core$Json_Decode$bool),
-												function (implementMastery) {
-													return A2(
-														_elm_lang$core$Json_Decode$andThen,
-														A2(_elm_lang$core$Json_Decode_ops[':='], 'debug', _elm_lang$core$Json_Decode$bool),
-														function (debug) {
-															return _elm_lang$core$Json_Decode$succeed(
-																{mastery: mastery, numerator: numerator, denominator: denominator, weighted: weighted, directed: directed, implementMastery: implementMastery, debug: debug});
-														});
-												});
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'debug', _elm_lang$core$Json_Decode$bool),
+										function (debug) {
+											return _elm_lang$core$Json_Decode$succeed(
+												{mastery: mastery, numerator: numerator, denominator: denominator, implementMastery: implementMastery, debug: debug});
 										});
 								});
 						});

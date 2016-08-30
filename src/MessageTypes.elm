@@ -5,8 +5,6 @@ type alias SSData =
     { mastery : Bool
     , numerator : Int
     , denominator : Int
-    , weighted : Bool
-    , directed : Bool
     , implementMastery : Bool
     , debug : Bool
     }
