@@ -9205,6 +9205,135 @@ var _elm_lang$svg$Svg_Attributes$accumulate = _elm_lang$virtual_dom$VirtualDom$a
 var _elm_lang$svg$Svg_Attributes$accelerate = _elm_lang$virtual_dom$VirtualDom$attribute('accelerate');
 var _elm_lang$svg$Svg_Attributes$accentHeight = _elm_lang$virtual_dom$VirtualDom$attribute('accent-height');
 
+
+var _user$project$MessageTypes$SSData = F7(
+	function (a, b, c, d, e, f, g) {
+		return {mastery: a, numerator: b, denominator: c, weighted: d, directed: e, implementMastery: f, debug: g};
+	});
+var _user$project$MessageTypes$GetValuesFromSS = function (a) {
+	return {ctor: 'GetValuesFromSS', _0: a};
+};
+var _user$project$MessageTypes$UpdateMastery = {ctor: 'UpdateMastery'};
+var _user$project$MessageTypes$CheckMastery = {ctor: 'CheckMastery'};
+var _user$project$MessageTypes$GiveFeedback = {ctor: 'GiveFeedback'};
+var _user$project$MessageTypes$Submit = {ctor: 'Submit'};
+var _user$project$MessageTypes$UserInput = function (a) {
+	return {ctor: 'UserInput', _0: a};
+};
+var _user$project$MessageTypes$NewQuestion = function (a) {
+	return {ctor: 'NewQuestion', _0: a};
+};
+var _user$project$MessageTypes$NewRandomValues = function (a) {
+	return {ctor: 'NewRandomValues', _0: a};
+};
+var _user$project$MessageTypes$Reset = {ctor: 'Reset'};
+
+var _user$project$HistoryView$historySquareSeparation = 5;
+var _user$project$HistoryView$historySquareSize = 25;
+var _user$project$HistoryView$historySquare = F2(
+	function (h, i) {
+		var myX = 10 + ((_user$project$HistoryView$historySquareSize + _user$project$HistoryView$historySquareSeparation) * i);
+		var base = _elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$svg$Svg_Attributes$width(
+				_elm_lang$core$Basics$toString(_user$project$HistoryView$historySquareSize)),
+				_elm_lang$svg$Svg_Attributes$height(
+				_elm_lang$core$Basics$toString(_user$project$HistoryView$historySquareSize)),
+				_elm_lang$svg$Svg_Attributes$y('10')
+			]);
+		var incorrect = A2(
+			_elm_lang$core$List$append,
+			base,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$fill('red')
+				]));
+		var correct = A2(
+			_elm_lang$core$List$append,
+			base,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$fill('green')
+				]));
+		var nothing = A2(
+			_elm_lang$core$List$append,
+			base,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$fill('white')
+				]));
+		var _p0 = h;
+		if (_p0.ctor === 'Just') {
+			if (_p0._0 === true) {
+				return A2(
+					_elm_lang$svg$Svg$rect,
+					A2(
+						_elm_lang$core$List$append,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$svg$Svg_Attributes$x(
+								_elm_lang$core$Basics$toString(myX))
+							]),
+						correct),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			} else {
+				return A2(
+					_elm_lang$svg$Svg$rect,
+					A2(
+						_elm_lang$core$List$append,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$svg$Svg_Attributes$x(
+								_elm_lang$core$Basics$toString(myX))
+							]),
+						incorrect),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			}
+		} else {
+			return A2(
+				_elm_lang$svg$Svg$rect,
+				A2(
+					_elm_lang$core$List$append,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString(myX))
+						]),
+					nothing),
+				_elm_lang$core$Native_List.fromArray(
+					[]));
+		}
+	});
+var _user$project$HistoryView$historyList = F2(
+	function (history, index) {
+		var _p1 = history;
+		if (_p1.ctor === '::') {
+			return A2(
+				_elm_lang$core$List_ops['::'],
+				A2(_user$project$HistoryView$historySquare, _p1._0, index),
+				A2(_user$project$HistoryView$historyList, _p1._1, index + 1));
+		} else {
+			return _elm_lang$core$Native_List.fromArray(
+				[]);
+		}
+	});
+var _user$project$HistoryView$historySection = F2(
+	function (history, historyLength) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$version('1.1'),
+					_elm_lang$svg$Svg_Attributes$baseProfile('full'),
+					_elm_lang$svg$Svg_Attributes$width(
+					_elm_lang$core$Basics$toString(historyLength * (_user$project$HistoryView$historySquareSize + _user$project$HistoryView$historySquareSeparation))),
+					_elm_lang$svg$Svg_Attributes$height('50')
+				]),
+			A2(_user$project$HistoryView$historyList, history, 0));
+	});
+
 var _user$project$Question$findFeedback = F3(
 	function (answer, response, distractors) {
 		findFeedback:
@@ -9623,7 +9752,6 @@ var _user$project$Question$emptyQuestion = {
 	format: _user$project$Question$FillInTheBlank
 };
 
-
 var _user$project$ModelType$Model = function (a) {
 	return function (b) {
 		return function (c) {
@@ -9648,133 +9776,84 @@ var _user$project$ModelType$Model = function (a) {
 	};
 };
 
-var _user$project$MessageTypes$SSData = F7(
-	function (a, b, c, d, e, f, g) {
-		return {mastery: a, numerator: b, denominator: c, weighted: d, directed: e, implementMastery: f, debug: g};
-	});
-var _user$project$MessageTypes$GetValuesFromSS = function (a) {
-	return {ctor: 'GetValuesFromSS', _0: a};
+var _user$project$Model$initModel = {
+	debug: false,
+	userInput: '',
+	history: _elm_lang$core$Native_List.fromArray(
+		[]),
+	success: _elm_lang$core$Maybe$Nothing,
+	question: _user$project$Question$emptyQuestion,
+	feedback: '',
+	randomValues: _elm_lang$core$Native_List.fromArray(
+		[]),
+	mastery: false,
+	numerator: 3,
+	denominator: 5,
+	implementMastery: false
 };
-var _user$project$MessageTypes$UpdateMastery = {ctor: 'UpdateMastery'};
-var _user$project$MessageTypes$CheckMastery = {ctor: 'CheckMastery'};
-var _user$project$MessageTypes$GiveFeedback = {ctor: 'GiveFeedback'};
-var _user$project$MessageTypes$Submit = {ctor: 'Submit'};
-var _user$project$MessageTypes$UserInput = function (a) {
-	return {ctor: 'UserInput', _0: a};
+var _user$project$Model$init = {ctor: '_Tuple2', _0: _user$project$Model$initModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Model$masteryAchieved = function (model) {
+	var correctAnswers = A5(
+		_elm_lang$core$Debug$log,
+		'in masteryAchieved ',
+		_elm_lang$core$List$foldr,
+		F2(
+			function (h, acc) {
+				return _elm_lang$core$Native_Utils.eq(
+					h,
+					_elm_lang$core$Maybe$Just(true)) ? (acc + 1) : acc;
+			}),
+		0,
+		model.history);
+	return model.implementMastery ? (_elm_lang$core$Native_Utils.cmp(correctAnswers, model.numerator) > -1) : (_elm_lang$core$Native_Utils.cmp(
+		_elm_lang$core$List$length(model.history),
+		model.numerator) > -1);
 };
-var _user$project$MessageTypes$NewQuestion = function (a) {
-	return {ctor: 'NewQuestion', _0: a};
-};
-var _user$project$MessageTypes$NewRandomValues = function (a) {
-	return {ctor: 'NewRandomValues', _0: a};
-};
-var _user$project$MessageTypes$Reset = {ctor: 'Reset'};
 
-var _user$project$HistoryView$historySquareSeparation = 5;
-var _user$project$HistoryView$historySquareSize = 25;
-var _user$project$HistoryView$historySquare = F2(
-	function (h, i) {
-		var myX = 10 + ((_user$project$HistoryView$historySquareSize + _user$project$HistoryView$historySquareSeparation) * i);
-		var base = _elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$svg$Svg_Attributes$width(
-				_elm_lang$core$Basics$toString(_user$project$HistoryView$historySquareSize)),
-				_elm_lang$svg$Svg_Attributes$height(
-				_elm_lang$core$Basics$toString(_user$project$HistoryView$historySquareSize)),
-				_elm_lang$svg$Svg_Attributes$y('10')
-			]);
-		var incorrect = A2(
-			_elm_lang$core$List$append,
-			base,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$svg$Svg_Attributes$fill('red')
-				]));
-		var correct = A2(
-			_elm_lang$core$List$append,
-			base,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$svg$Svg_Attributes$fill('green')
-				]));
-		var nothing = A2(
-			_elm_lang$core$List$append,
-			base,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$svg$Svg_Attributes$fill('white')
-				]));
-		var _p0 = h;
-		if (_p0.ctor === 'Just') {
-			if (_p0._0 === true) {
-				return A2(
-					_elm_lang$svg$Svg$rect,
-					A2(
-						_elm_lang$core$List$append,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$x(
-								_elm_lang$core$Basics$toString(myX))
-							]),
-						correct),
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			} else {
-				return A2(
-					_elm_lang$svg$Svg$rect,
-					A2(
-						_elm_lang$core$List$append,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$x(
-								_elm_lang$core$Basics$toString(myX))
-							]),
-						incorrect),
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			}
-		} else {
+var _user$project$Ports$updateMastery = _elm_lang$core$Native_Platform.outgoingPort(
+	'updateMastery',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$ssData = _elm_lang$core$Native_Platform.incomingPort(
+	'ssData',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'mastery', _elm_lang$core$Json_Decode$bool),
+		function (mastery) {
 			return A2(
-				_elm_lang$svg$Svg$rect,
-				A2(
-					_elm_lang$core$List$append,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$svg$Svg_Attributes$x(
-							_elm_lang$core$Basics$toString(myX))
-						]),
-					nothing),
-				_elm_lang$core$Native_List.fromArray(
-					[]));
-		}
-	});
-var _user$project$HistoryView$historyList = F2(
-	function (history, index) {
-		var _p1 = history;
-		if (_p1.ctor === '::') {
-			return A2(
-				_elm_lang$core$List_ops['::'],
-				A2(_user$project$HistoryView$historySquare, _p1._0, index),
-				A2(_user$project$HistoryView$historyList, _p1._1, index + 1));
-		} else {
-			return _elm_lang$core$Native_List.fromArray(
-				[]);
-		}
-	});
-var _user$project$HistoryView$historySection = F2(
-	function (history, historyLength) {
-		return A2(
-			_elm_lang$svg$Svg$svg,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$svg$Svg_Attributes$version('1.1'),
-					_elm_lang$svg$Svg_Attributes$baseProfile('full'),
-					_elm_lang$svg$Svg_Attributes$width(
-					_elm_lang$core$Basics$toString(historyLength * (_user$project$HistoryView$historySquareSize + _user$project$HistoryView$historySquareSeparation))),
-					_elm_lang$svg$Svg_Attributes$height('50')
-				]),
-			A2(_user$project$HistoryView$historyList, history, 0));
-	});
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'numerator', _elm_lang$core$Json_Decode$int),
+				function (numerator) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'denominator', _elm_lang$core$Json_Decode$int),
+						function (denominator) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'weighted', _elm_lang$core$Json_Decode$bool),
+								function (weighted) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'directed', _elm_lang$core$Json_Decode$bool),
+										function (directed) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'implementMastery', _elm_lang$core$Json_Decode$bool),
+												function (implementMastery) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'debug', _elm_lang$core$Json_Decode$bool),
+														function (debug) {
+															return _elm_lang$core$Json_Decode$succeed(
+																{mastery: mastery, numerator: numerator, denominator: denominator, weighted: weighted, directed: directed, implementMastery: implementMastery, debug: debug});
+														});
+												});
+										});
+								});
+						});
+				});
+		}));
 
 var _user$project$QuestionView$buttonStyle = _elm_lang$html$Html_Attributes$style(
 	_elm_lang$core$Native_List.fromArray(
@@ -10113,85 +10192,6 @@ var _user$project$View$view = function (model) {
 			]));
 };
 
-var _user$project$Ports$updateMastery = _elm_lang$core$Native_Platform.outgoingPort(
-	'updateMastery',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$ssData = _elm_lang$core$Native_Platform.incomingPort(
-	'ssData',
-	A2(
-		_elm_lang$core$Json_Decode$andThen,
-		A2(_elm_lang$core$Json_Decode_ops[':='], 'mastery', _elm_lang$core$Json_Decode$bool),
-		function (mastery) {
-			return A2(
-				_elm_lang$core$Json_Decode$andThen,
-				A2(_elm_lang$core$Json_Decode_ops[':='], 'numerator', _elm_lang$core$Json_Decode$int),
-				function (numerator) {
-					return A2(
-						_elm_lang$core$Json_Decode$andThen,
-						A2(_elm_lang$core$Json_Decode_ops[':='], 'denominator', _elm_lang$core$Json_Decode$int),
-						function (denominator) {
-							return A2(
-								_elm_lang$core$Json_Decode$andThen,
-								A2(_elm_lang$core$Json_Decode_ops[':='], 'weighted', _elm_lang$core$Json_Decode$bool),
-								function (weighted) {
-									return A2(
-										_elm_lang$core$Json_Decode$andThen,
-										A2(_elm_lang$core$Json_Decode_ops[':='], 'directed', _elm_lang$core$Json_Decode$bool),
-										function (directed) {
-											return A2(
-												_elm_lang$core$Json_Decode$andThen,
-												A2(_elm_lang$core$Json_Decode_ops[':='], 'implementMastery', _elm_lang$core$Json_Decode$bool),
-												function (implementMastery) {
-													return A2(
-														_elm_lang$core$Json_Decode$andThen,
-														A2(_elm_lang$core$Json_Decode_ops[':='], 'debug', _elm_lang$core$Json_Decode$bool),
-														function (debug) {
-															return _elm_lang$core$Json_Decode$succeed(
-																{mastery: mastery, numerator: numerator, denominator: denominator, weighted: weighted, directed: directed, implementMastery: implementMastery, debug: debug});
-														});
-												});
-										});
-								});
-						});
-				});
-		}));
-
-var _user$project$Model$initModel = {
-	debug: false,
-	userInput: '',
-	history: _elm_lang$core$Native_List.fromArray(
-		[]),
-	success: _elm_lang$core$Maybe$Nothing,
-	question: _user$project$Question$emptyQuestion,
-	feedback: '',
-	randomValues: _elm_lang$core$Native_List.fromArray(
-		[]),
-	mastery: false,
-	numerator: 3,
-	denominator: 5,
-	implementMastery: false
-};
-var _user$project$Model$init = {ctor: '_Tuple2', _0: _user$project$Model$initModel, _1: _elm_lang$core$Platform_Cmd$none};
-var _user$project$Model$masteryAchieved = function (model) {
-	var correctAnswers = A5(
-		_elm_lang$core$Debug$log,
-		'in masteryAchieved ',
-		_elm_lang$core$List$foldr,
-		F2(
-			function (h, acc) {
-				return _elm_lang$core$Native_Utils.eq(
-					h,
-					_elm_lang$core$Maybe$Just(true)) ? (acc + 1) : acc;
-			}),
-		0,
-		model.history);
-	return model.implementMastery ? (_elm_lang$core$Native_Utils.cmp(correctAnswers, model.numerator) > -1) : (_elm_lang$core$Native_Utils.cmp(
-		_elm_lang$core$List$length(model.history),
-		model.numerator) > -1);
-};
-
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		update:
@@ -10340,17 +10340,17 @@ var _user$project$Update$update = F2(
 		}
 	});
 
-var _user$project$GraphQuestions$subscriptions = function (model) {
+var _user$project$TypeInference$subscriptions = function (model) {
 	return _user$project$Ports$ssData(_user$project$MessageTypes$GetValuesFromSS);
 };
-var _user$project$GraphQuestions$main = {
+var _user$project$TypeInference$main = {
 	main: _elm_lang$html$Html_App$program(
-		{init: _user$project$Model$init, view: _user$project$View$view, update: _user$project$Update$update, subscriptions: _user$project$GraphQuestions$subscriptions})
+		{init: _user$project$Model$init, view: _user$project$View$view, update: _user$project$Update$update, subscriptions: _user$project$TypeInference$subscriptions})
 };
 
 var Elm = {};
-Elm['GraphQuestions'] = Elm['GraphQuestions'] || {};
-_elm_lang$core$Native_Platform.addPublicModule(Elm['GraphQuestions'], 'GraphQuestions', typeof _user$project$GraphQuestions$main === 'undefined' ? null : _user$project$GraphQuestions$main);
+Elm['TypeInference'] = Elm['TypeInference'] || {};
+_elm_lang$core$Native_Platform.addPublicModule(Elm['TypeInference'], 'TypeInference', typeof _user$project$TypeInference$main === 'undefined' ? null : _user$project$TypeInference$main);
 
 if (typeof define === "function" && define['amd'])
 {
