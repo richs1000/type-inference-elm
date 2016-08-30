@@ -1,7 +1,4 @@
 // create a data model that exposes parameters to smart sparrow
-// dataModel = {
-//   mastery: 'false',
-// };
 var model = new pipit.CapiAdapter.CapiModel({
     mastery: false,
     numerator: 30,
@@ -30,18 +27,22 @@ app.ports.updateMastery.subscribe(function(mastery) {
 });
 
 model.on('change:numerator', function(){
+    alert("numerator changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:denominator', function(){
+    alert("denominator changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:implementMastery', function(){
+    alert("impMastery changed");
     app.ports.ssData.send( model );
 });
 
 model.on('change:debug', function(){
+    alert("debug changed");
     app.ports.ssData.send( model );
 });
 

@@ -27,7 +27,8 @@ update msg model =
         NewQuestion questionIndex ->
             let
                 question' =
-                    newQuestion model.randomValues questionIndex
+                    Debug.log "question index "
+                        (newQuestion model.randomValues questionIndex)
             in
                 ( { model | question = question', success = Nothing, userInput = "" }, Cmd.none )
 

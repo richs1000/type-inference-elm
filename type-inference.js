@@ -10222,7 +10222,10 @@ var _user$project$Update$update = F2(
 							A2(_elm_lang$core$Random$int, 1, 3))
 					};
 				case 'NewQuestion':
-					var question$ = A2(_user$project$Question$newQuestion, model.randomValues, _p0._0);
+					var question$ = A2(
+						_elm_lang$core$Debug$log,
+						'question index ',
+						A2(_user$project$Question$newQuestion, model.randomValues, _p0._0));
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
@@ -10319,6 +10322,7 @@ var _user$project$Update$update = F2(
 					};
 				default:
 					var _p2 = _p0._0;
+					var debug$ = A2(_elm_lang$core$Debug$log, 'got values from smart sparrow: ', _p2.debug);
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
