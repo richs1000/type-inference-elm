@@ -55,7 +55,7 @@ var _user$project$View$questionOrFeedback = function (model) {
 				0,
 				_elm_lang$core$List$head(model.randomValues)));
 	} else {
-		return A2(_user$project$QuestionView$displayFeedback, model.userInput, model.feedback);
+		return A3(_user$project$QuestionView$displayFeedback, model.question, model.userInput, model.feedback);
 	}
 };
 var _user$project$View$scoreboardStyle = _elm_lang$html$Html_Attributes$style(

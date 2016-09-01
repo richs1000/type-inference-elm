@@ -139,10 +139,10 @@ radio name userInput =
             ]
 
 
-displayFeedback : String -> String -> Html Msg
-displayFeedback userInput feedback =
+displayFeedback : Question -> String -> String -> Html Msg
+displayFeedback quest userInput feedback =
     Html.form [ onSubmit GiveFeedback ]
-        [ div [ questionStyle ] [ Html.text feedback ]
+        [ questionLines quest.question
         , input
             [ Html.Attributes.type' "text"
             , value userInput
@@ -150,6 +150,7 @@ displayFeedback userInput feedback =
             , inputStyle
             ]
             []
+        , div [ questionStyle ] [ Html.text feedback ]
         , button
             [ Html.Attributes.type' "submit"
             , buttonStyle
