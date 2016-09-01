@@ -40,7 +40,7 @@ questionOrFeedback model =
 
         -- Answer has been submitted, so display the feedback
         Just _ ->
-            displayFeedback model.userInput model.feedback
+            displayFeedback model.question model.userInput model.feedback
 
 
 debugSection : Model -> Html Msg

@@ -10048,8 +10048,8 @@ var _user$project$QuestionView$displayQuestion = F3(
 			return A3(_user$project$QuestionView$multipleChoice, quest, userInput, randomValue);
 		}
 	});
-var _user$project$QuestionView$displayFeedback = F2(
-	function (userInput, feedback) {
+var _user$project$QuestionView$displayFeedback = F3(
+	function (quest, userInput, feedback) {
 		return A2(
 			_elm_lang$html$Html$form,
 			_elm_lang$core$Native_List.fromArray(
@@ -10058,14 +10058,7 @@ var _user$project$QuestionView$displayFeedback = F2(
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					A2(
-					_elm_lang$html$Html$div,
-					_elm_lang$core$Native_List.fromArray(
-						[_user$project$QuestionView$questionStyle]),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text(feedback)
-						])),
+					_user$project$QuestionView$questionLines(quest.question),
 					A2(
 					_elm_lang$html$Html$input,
 					_elm_lang$core$Native_List.fromArray(
@@ -10077,6 +10070,14 @@ var _user$project$QuestionView$displayFeedback = F2(
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$QuestionView$questionStyle]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(feedback)
+						])),
 					A2(
 					_elm_lang$html$Html$button,
 					_elm_lang$core$Native_List.fromArray(
@@ -10148,7 +10149,7 @@ var _user$project$View$questionOrFeedback = function (model) {
 				0,
 				_elm_lang$core$List$head(model.randomValues)));
 	} else {
-		return A2(_user$project$QuestionView$displayFeedback, model.userInput, model.feedback);
+		return A3(_user$project$QuestionView$displayFeedback, model.question, model.userInput, model.feedback);
 	}
 };
 var _user$project$View$scoreboardStyle = _elm_lang$html$Html_Attributes$style(
